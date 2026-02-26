@@ -13,7 +13,6 @@ abstract class Animal {
   public string Color { get; set; }
 
   public Animal(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color) {
-
     Name = name;
     Age = age;
     Habitat = habitat;
@@ -35,13 +34,11 @@ class Mammal : Animal {
 
   public bool HasFur { get; set; }
 
-  public Mammal(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, bool presenceOfWool): base(name, age, habitat, typeOfFood, weight, length, height, color) {
-
-    HasFur = presenceOfWool;
+  public Mammal(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, bool hasFur): base(name, age, habitat, typeOfFood, weight, length, height, color) {
+    HasFur = hasFur;
   }
 
   public override string GetInfo() {
-
     return base.GetInfo() + $"; animal type: mammal; presence of wool: {HasFur}";
   }
 }
@@ -51,12 +48,10 @@ class Bird : Animal {
   public double WingSpan { get; set; }
 
   public Bird(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, double wingSpan): base(name, age, habitat, typeOfFood, weight, length, height, color) {
-
     WingSpan = wingSpan;
   }
 
   public override string GetInfo() {
-
     return base.GetInfo() + $"; animal type: bird; wingspan: {WingSpan}";
   }
 }
@@ -66,12 +61,10 @@ class Fish : Animal {
   public string WaterType { get; set; }
 
   public Fish(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, string waterType): base(name, age, habitat, typeOfFood, weight, length, height, color) {
-
     WaterType = waterType;
   }
 
   public override string GetInfo() {
-
     return base.GetInfo() + $"; animal type: fish; water type: {WaterType}";
   }
 }
@@ -81,12 +74,10 @@ class Reptile : Animal {
   public bool IsVenomous { get; set; }
 
   public Reptile(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, bool isVenomous): base(name, age, habitat, typeOfFood, weight, length, height, color) {
-
     IsVenomous = isVenomous;
   }
 
   public override string GetInfo() {
-
     return base.GetInfo() + $"; animal type: reptile; is venomous: {IsVenomous}";
   }
 }
@@ -99,20 +90,18 @@ class Amphibian : Animal {
   int maximumSkinMoisture = 50;
 
   public Amphibian(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, int skinMoisture): base(name, age, habitat, typeOfFood, weight, length, height, color) {
-
     SkinMoisture = skinMoisture;
   }
 
   public override string GetInfo() {
 
     if (SkinMoisture < minimumSkinMoisture) {
-
       return base.GetInfo() + $"; animal type: amphibian; skin moisture: {SkinMoisture}% – dry";
+
     } else if (SkinMoisture > minimumSkinMoisture && SkinMoisture <= maximumSkinMoisture) {
-
       return base.GetInfo() + $"; animal type: amphibian; skin moisture: {SkinMoisture}% – normal";
-    } else {
 
+    } else {
       return base.GetInfo() + $"; animal type: amphibian; skin moisture: {SkinMoisture}% – wet";
     }
   }
@@ -125,8 +114,8 @@ class ZooManager {
   public List<Animal> animalInventory = new List<Animal> { };
 
   public void AddAnimalToInventory(Animal animal) {
-
     animalInventory.Add(animal);
+
     Console.WriteLine($"\nAnimal {animal.Name} added to the zoo :)");
   }
 
@@ -135,7 +124,6 @@ class ZooManager {
     get {
 
       if (_instance == null) {
-
         _instance = new ZooManager();
       }
 
@@ -146,8 +134,8 @@ class ZooManager {
   public void ShowAllAnimals() {
 
     if (animalInventory.Count == 0) {
-
       Console.WriteLine("There are no animals in the zoo yet :(");
+
       return;
     }
 
@@ -157,7 +145,6 @@ class ZooManager {
     Console.WriteLine("");
 
     for (int animalIndex = 0; animalIndex < animalInventory.Count; ++animalIndex) {
-
       Console.WriteLine($"Animal №{animalIndex + 1}:\n\n" +
                         $"{animalInventory[animalIndex].GetInfo()}\n" +
                         "-------------------------------------------------------");
@@ -167,8 +154,8 @@ class ZooManager {
   public void GetAnimalByIndex(int animalIndex) {
 
     if (animalIndex < 0 || animalIndex >= animalInventory.Count) {
-
       Console.WriteLine("Wrong animal index! >:O");
+
       return;
     }
 
@@ -181,7 +168,6 @@ class ZooManager {
     bool isRunning = true;
 
     while (isRunning) {
-
       Console.WriteLine("\n\n\n\n\n\n\n");
             
       string[] mainMenuControls = new string[] {
@@ -198,37 +184,34 @@ class ZooManager {
       };
       Program.MoveTextToCenter(mainMenuControls);
 
-      string choice;
+      string userChoice;
       Console.Write("\n\nPlease enter the command number (1 to 4): ");
-      choice = Console.ReadLine();
+      userChoice = Console.ReadLine();
 
-      switch (choice) {
+      switch (userChoice) {
 
         case "1": {
-
           Console.Clear();
           ShowAllAnimals();
+
           break;
         }
 
         case "2": {
-
           Console.Clear();
           CreateAnimal(this);
+
           break;
         }
 
         case "3": {
-
           Console.Clear();
 
           Console.Write("Enter animal index (1, 2, 3, etc.): ");
 
           if (int.TryParse(Console.ReadLine(), out int animalIndex)) {
-
             GetAnimalByIndex(animalIndex - 1);
           } else {
-
             Console.WriteLine("Incorrect animal index! >:O");
           }
 
@@ -236,20 +219,19 @@ class ZooManager {
         }
 
         case "4": {
-
           isRunning = false;
+
           break;
         }
 
         default: { 
-
           Console.WriteLine("Incorrect command number. Try again, please . . .");
+
           break;
         }
       }
 
       if (isRunning) {
-
         Console.Write("\nEnter any key to return to the main menu: ");
         Console.ReadKey();
         Console.Clear();
@@ -280,27 +262,27 @@ class ZooManager {
 
     string[] commandNumbers = new string[] { "1", "2", "3", "4", "5" };
 
-    string choice;
+    string userChoice;
     Console.Write("\n\nEnter the command number: ");
-    choice = Console.ReadLine();
+    userChoice = Console.ReadLine();
 
-    bool isCorrect = false;
+    bool isValidChoice = false;
         
     for (int index = 0; index < commandNumbers.Length; ++index) {
 
-      if (choice == commandNumbers[index]) {
+      if (userChoice == commandNumbers[index]) {
+        isValidChoice = true;
 
-        isCorrect = true;
         break;
       }
     }
 
-    if (isCorrect == false) {
-
+    if (isValidChoice == false) {
       Console.WriteLine("Incorrect command number! >:O");
-      return;
-    } else {
 
+      return;
+
+    } else {
       Console.Clear();
 
       string name;
@@ -323,7 +305,6 @@ class ZooManager {
       typeOfFood = Console.ReadLine();
 
       while (typeOfFood != "carnivore" && typeOfFood != "herbivore" && typeOfFood != "omnivore") {
-
         Console.Write("\nPlease, enter \"carnivore\", \"herbivore\" or \"omnivore\": ");
         typeOfFood = Console.ReadLine();
       }
@@ -340,55 +321,49 @@ class ZooManager {
       Console.Write("\nColor: ");
       color = Console.ReadLine();
 
-      string check;
+      string userInput;
 
-      switch (choice) {
+      switch (userChoice) {
 
         //Mammal
         case "1": {
-
-          bool presenceOfWool = false;
+          bool hasFur = false;
 
           Console.Write("\nYour animal has fur (true/false): ");
-          check = Console.ReadLine();
+          userInput = Console.ReadLine();
 
-          while (check != "true" && check != "false") {
-
+          while (userInput != "true" && userInput != "false") {
             Console.Write("\nPlease, enter \"true\" or \"false\": ");
-            check = Console.ReadLine();
+            userInput = Console.ReadLine();
           }
 
-          if (check == "true") {
-
-            presenceOfWool = true;
+          if (userInput == "true") {
+            hasFur = true;
           }
 
-          zoo.AddAnimalToInventory(new Mammal(name, age, habitat, typeOfFood, weight, length, height, color, presenceOfWool));
+          zoo.AddAnimalToInventory(new Mammal(name, age, habitat, typeOfFood, weight, length, height, color, hasFur));
 
           break;
         }
 
         //Bird
         case "2": {
-
-          double wingspan;
+          double wingSpan;
           Console.Write("\nWingspan (m): ");
-          wingspan = Convert.ToDouble(Console.ReadLine());
+          wingSpan = Convert.ToDouble(Console.ReadLine());
 
-          zoo.AddAnimalToInventory(new Bird(name, age, habitat, typeOfFood, weight, length, height, color, wingspan));
+          zoo.AddAnimalToInventory(new Bird(name, age, habitat, typeOfFood, weight, length, height, color, wingSpan));
 
           break;
         }
 
         //Fish
         case "3": {
-
           string waterType;
           Console.Write("\nWater type (fresh/salt): ");
           waterType = Console.ReadLine();
 
-          while (waterType != "fresh" & waterType != "salt") {
-
+          while (waterType != "fresh" && waterType != "salt") {
             Console.Write("\nPlease, enter \"fresh\" or \"salt\": ");
             waterType = Console.ReadLine();
           }
@@ -400,20 +375,17 @@ class ZooManager {
 
         //Reptile
         case "4": {
-
           bool isVenomous = false;
 
           Console.Write("\nYour animal is venomous (true/false): ");
-          check = Console.ReadLine();
+          userInput = Console.ReadLine();
 
-          while (check != "true" & check != "false") {
-
+          while (userInput != "true" && userInput != "false") {
             Console.Write("\nPlease, enter \"true\" or \"false\": ");
-            check = Console.ReadLine();
+            userInput = Console.ReadLine();
           }
 
-          if (check == "true") {
-
+          if (userInput == "true") {
             isVenomous = true;
           }
 
@@ -424,7 +396,6 @@ class ZooManager {
 
         //Amphibian
         case "5": {
-
           int skinMoisture;
           Console.Write("\nSkin moisture (%): ");
           skinMoisture = Convert.ToInt32(Console.ReadLine());
@@ -477,8 +448,8 @@ class Program {
     width = Console.WindowWidth;
 
     for (int lineIndex = 0; lineIndex < text.Length; ++lineIndex) {
-
       padding = (width - text[lineIndex].Length) / 2;
+
       Console.WriteLine(text[lineIndex].PadLeft(padding + text[lineIndex].Length).PadRight(width));
     }
   }
