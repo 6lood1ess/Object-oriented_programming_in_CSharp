@@ -75,3 +75,45 @@ class Fish : Animal {
     return base.GetInfo() + $"; animal type: fish; water type: {WaterType}";
   }
 }
+
+class Reptile : Animal {
+
+  public bool IsVenomous { get; set; }
+
+  public Reptile(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, bool isVenomous): base(name, age, habitat, typeOfFood, weight, length, height, color) {
+
+    IsVenomous = isVenomous;
+  }
+
+  public override string GetInfo() {
+
+    return base.GetInfo() + $"; animal type: reptile; is venomous: {IsVenomous}";
+  }
+}
+
+class Amphibian : Animal {
+
+  public int SkinMoisture { get; set; }
+
+  int minimumSkinMoisture = 15;
+  int maximumSkinMoisture = 50;
+
+  public Amphibian(string name, int age, string habitat, string typeOfFood, double weight, double length, double height, string color, int skinMoisture): base(name, age, habitat, typeOfFood, weight, length, height, color) {
+
+    SkinMoisture = skinMoisture;
+  }
+
+  public override string GetInfo() {
+
+    if (SkinMoisture < minimumSkinMoisture) {
+
+      return base.GetInfo() + $"; animal type: amphibian; skin moisture: {SkinMoisture}% – dry";
+    } else if (SkinMoisture > minimumSkinMoisture && SkinMoisture <= maximumSkinMoisture) {
+
+      return base.GetInfo() + $"; animal type: amphibian; skin moisture: {SkinMoisture}% – normal";
+    } else {
+
+      return base.GetInfo() + $"; animal type: amphibian; skin moisture: {SkinMoisture}% – wet";
+    }
+  }
+}
