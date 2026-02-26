@@ -178,8 +178,6 @@ class ZooManager {
 
   public void RunMainMenu() {
 
-    ZooManager zoo = ZooManager.Instance;
-
     bool isRunning = true;
 
     while (isRunning) {
@@ -209,14 +207,14 @@ class ZooManager {
         case "1": {
 
           Console.Clear();
-          zoo.ShowAllAnimals();
+          ShowAllAnimals();
           break;
         }
 
         case "2": {
 
           Console.Clear();
-          CreateAnimal(zoo);
+          CreateAnimal(this);
           break;
         }
 
@@ -228,7 +226,7 @@ class ZooManager {
 
           if (int.TryParse(Console.ReadLine(), out int animalIndex)) {
 
-            zoo.GetAnimalByIndex(animalIndex - 1);
+            GetAnimalByIndex(animalIndex - 1);
           } else {
 
             Console.WriteLine("Incorrect animal index! >:O");
@@ -241,8 +239,10 @@ class ZooManager {
 
           isRunning = false;
           break;
+        }
 
-        default:
+        default: { 
+
           Console.WriteLine("Incorrect command number. Try again, please . . .");
           break;
         }
@@ -256,6 +256,7 @@ class ZooManager {
       }
     }
   }
+
   
   public void CreateAnimal(ZooManager zoo) {
 
@@ -321,7 +322,7 @@ class ZooManager {
       Console.Write("\nType of food (carnivore, herbivore, omnivore): ");
       typeOfFood = Console.ReadLine();
 
-      while (typeOfFood != "carnivore" & typeOfFood != "herbivore" & typeOfFood != "omnivore") {
+      while (typeOfFood != "carnivore" && typeOfFood != "herbivore" && typeOfFood != "omnivore") {
 
         Console.Write("\nPlease, enter \"carnivore\", \"herbivore\" or \"omnivore\": ");
         typeOfFood = Console.ReadLine();
@@ -351,7 +352,7 @@ class ZooManager {
           Console.Write("\nYour animal has fur (true/false): ");
           check = Console.ReadLine();
 
-          while (check != "true" & check != "false") {
+          while (check != "true" && check != "false") {
 
             Console.Write("\nPlease, enter \"true\" or \"false\": ");
             check = Console.ReadLine();
@@ -440,10 +441,80 @@ class ZooManager {
 
     Console.WriteLine("\nAdded demo animals:");
 
-    zoo.AddAnimalToInventory(new Mammal("Nick Wilde", 3, "forests, steppes, deserts, tundra", "omnivorous", 6.0, 0.9, 0.4, "red", true));
-    zoo.AddAnimalToInventory(new Bird("Golubchik", 2, "city", "omnivorous", 0.3, 0.32, 0.2, "gray", 0.72));
-    zoo.AddAnimalToInventory(new Fish("Nemo", 3, "warm tropical waters", "omnivorous", 0.05, 0.11, 0.04, "orange", "salt"));
-    zoo.AddAnimalToInventory(new Reptile("Rango", 2, "steppes", "predator", 0.015, 0.15, 0.015, "green", false));
-    zoo.AddAnimalToInventory(new Amphibian("Naveen", 2, "forest, meadow, swamp", "predator", 0.025, 0.08, 0.04, "green", 80));
+    AddAnimalToInventory(new Mammal("Nick Wilde", 3, "forests, steppes, deserts, tundra", "omnivorous", 6.0, 0.9, 0.4, "red", true));
+    AddAnimalToInventory(new Bird("Golubchik", 2, "city", "omnivorous", 0.3, 0.32, 0.2, "gray", 0.72));
+    AddAnimalToInventory(new Fish("Nemo", 3, "warm tropical waters", "omnivorous", 0.05, 0.11, 0.04, "orange", "salt"));
+    AddAnimalToInventory(new Reptile("Rango", 2, "steppes", "predator", 0.015, 0.15, 0.015, "green", false));
+    AddAnimalToInventory(new Amphibian("Naveen", 2, "forest, meadow, swamp", "predator", 0.025, 0.08, 0.04, "green", 80));
+  }
+}
+
+class Program {
+
+  static void Main() {
+
+    string[] goodbyeMessage = new string[] { "Goodbye! Thanks for visiting our zoo!" };
+
+    ZooManager zoo = ZooManager.Instance;
+
+    DisplayLogo();
+    Console.Write("\n\n\n\n\nEnter to start . . .");
+    Console.ReadKey();
+    Console.Clear();
+
+    zoo.CreateDemoAnimals();
+    zoo.RunMainMenu();
+
+    Console.Clear();
+
+    MoveTextToCenter(goodbyeMessage);
+  }
+
+  public static void MoveTextToCenter(string[] text) {
+
+    int width, padding;
+
+    width = Console.WindowWidth;
+
+    for (int lineIndex = 0; lineIndex < text.Length; ++lineIndex) {
+
+      padding = (width - text[lineIndex].Length) / 2;
+      Console.WriteLine(text[lineIndex].PadLeft(padding + text[lineIndex].Length).PadRight(width));
+    }
+  }
+
+  static void DisplayLogo() {
+
+    Console.WriteLine("\n\n\n\n\n");
+
+    string[] logo = new string[] {
+
+      "-.*+.:@%= .. =@@:..*",
+      "@%.+@@-:@@@@=.=.*@@..#=",
+      ".%@*.#@@@::@@@+.#@*.:%@=",
+      "-@@@@@@%=:#@#.-@@@=.+@#.:-*@@% --%@@@@@@:",
+      "%@= ...-%@@:....:-%@=.%=.:....-@@%= ...+@#",
+      "@@= ...-@= .. =@@% *%@+:.#@##%@%-..+@:...+@%",
+      "*@% ..:...... %@@@@@@@@@@@@@@*.....::.. %@+",
+      "*:.=%#.-@@@@@@@@@@@@@@@@@@@@@@:.##-.-#",
+      "+@@@@*.- *@@@@@@@@@@@@@@@@@@@@@@*:.*@@@@=",
+      "+@@@% -...=@@@%@@@@@@@@@@@@@@@@#@@@-...-%@@@=",
+      "=@@#:*@%..@@@%...*@@@@@@@@@@=..:@@@%..%@*:#@@=",
+      "+@-=@@@-..:@@@@@@#-@@@@@@@@-%@@@@@@...-@@@==@+",
+      "-= *@@@+....#@@@@@@@@@@@@@@@@@@@@@@=....+@@@*=-",
+      ":@@@+:-...:%@@@@@@@@@@@@@@@@@@@@#....-:+@@@:",
+      "+@@#-@@:*=..:**@@+@@@@@@@@*@@+*:..-+.@@-#@@+",
+      "+@@:#@@-=@*..=@@#..........@@@:..*@=-@@#:@@+",
+      "%%.@@@:+@@:.:=#@@@=....+@@%*=:.:@@+:@@@.%%",
+      ":.@@@.%@@:.:= +#%@@@-=@@@%*+-:.:@@#.%@@::",
+      "%@#.@@@:..:=*%@@%:-%@@%*=:..:@@@.*@%",
+      "=@*:@@@:.+....:=#@@*=:....*.-@@@:*@=",
+      ":*.@@@=.@@-.*@@@@@@@@=.-@@.=@@@.*:",
+      ".@@%.+@@@*..*@@+.:+@@@+.%@@:",
+      "+@#.=@@@@*....*@@@@=.#@+",
+      "-#@@%..@@@#-",
+      ".:::-"
+    };
+    MoveTextToCenter(logo);    
   }
 }
