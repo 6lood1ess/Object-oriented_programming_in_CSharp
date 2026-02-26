@@ -259,9 +259,191 @@ class ZooManager {
   
   public void CreateAnimal(ZooManager zoo) {
 
+    Console.WriteLine("\n\n\n\n\n\n\n");
+
+    string[] addingMenuControls = new string[] {
+
+      "+ SELECT ANIMAL TYPE +",
+      "",
+      "1 - mammal",
+      "---------------------",
+      "2 - bird",
+      "---------------------",
+      "3 - fish",
+      "---------------------",
+      "4 - reptile",
+      "---------------------",
+      "5 - amphibian"
+    };
+    Program.MoveTextToCenter(addingMenuControls);
+
+    string[] commandNumbers = new string[] { "1", "2", "3", "4", "5" };
+
+    string choice;
+    Console.Write("\n\nEnter the command number: ");
+    choice = Console.ReadLine();
+
+    bool isCorrect = false;
+        
+    for (int index = 0; index < commandNumbers.Length; ++index) {
+
+      if (choice == commandNumbers[index]) {
+
+        isCorrect = true;
+        break;
+      }
+    }
+
+    if (isCorrect == false) {
+
+      Console.WriteLine("Incorrect command number! >:O");
+      return;
+    } else {
+
+      Console.Clear();
+
+      string name;
+      int age;
+      string habitat;
+      string typeOfFood;
+      double weight, length, height;
+      string color;
+
+      Console.Write("\nName: ");
+      name = Console.ReadLine();
+
+      Console.Write("\nAge: ");
+      age = Convert.ToInt32(Console.ReadLine());
+
+      Console.Write("\nHabitat: ");
+      habitat = Console.ReadLine();
+
+      Console.Write("\nType of food (carnivore, herbivore, omnivore): ");
+      typeOfFood = Console.ReadLine();
+
+      while (typeOfFood != "carnivore" & typeOfFood != "herbivore" & typeOfFood != "omnivore") {
+
+        Console.Write("\nPlease, enter \"carnivore\", \"herbivore\" or \"omnivore\": ");
+        typeOfFood = Console.ReadLine();
+      }
+
+      Console.Write("\nWeight (kg): ");
+      weight = Convert.ToDouble(Console.ReadLine());
+
+      Console.Write("\nLength (m): ");
+      length = Convert.ToDouble(Console.ReadLine());
+
+      Console.Write("\nHeight (m): ");
+      height = Convert.ToDouble(Console.ReadLine());
+
+      Console.Write("\nColor: ");
+      color = Console.ReadLine();
+
+      string check;
+
+      switch (choice) {
+
+        //Mammal
+        case "1": {
+
+          bool presenceOfWool = false;
+
+          Console.Write("\nYour animal has fur (true/false): ");
+          check = Console.ReadLine();
+
+          while (check != "true" & check != "false") {
+
+            Console.Write("\nPlease, enter \"true\" or \"false\": ");
+            check = Console.ReadLine();
+          }
+
+          if (check == "true") {
+
+            presenceOfWool = true;
+          }
+
+          zoo.AddAnimalToInventory(new Mammal(name, age, habitat, typeOfFood, weight, length, height, color, presenceOfWool));
+
+          break;
+        }
+
+        //Bird
+        case "2": {
+
+          double wingspan;
+          Console.Write("\nWingspan (m): ");
+          wingspan = Convert.ToDouble(Console.ReadLine());
+
+          zoo.AddAnimalToInventory(new Bird(name, age, habitat, typeOfFood, weight, length, height, color, wingspan));
+
+          break;
+        }
+
+        //Fish
+        case "3": {
+
+          string waterType;
+          Console.Write("\nWater type (fresh/salt): ");
+          waterType = Console.ReadLine();
+
+          while (waterType != "fresh" & waterType != "salt") {
+
+            Console.Write("\nPlease, enter \"fresh\" or \"salt\": ");
+            waterType = Console.ReadLine();
+          }
+
+          zoo.AddAnimalToInventory(new Fish(name, age, habitat, typeOfFood, weight, length, height, color, waterType));
+
+          break;
+        }
+
+        //Reptile
+        case "4": {
+
+          bool isVenomous = false;
+
+          Console.Write("\nYour animal is venomous (true/false): ");
+          check = Console.ReadLine();
+
+          while (check != "true" & check != "false") {
+
+            Console.Write("\nPlease, enter \"true\" or \"false\": ");
+            check = Console.ReadLine();
+          }
+
+          if (check == "true") {
+
+            isVenomous = true;
+          }
+
+          zoo.AddAnimalToInventory(new Reptile(name, age, habitat, typeOfFood, weight, length, height, color, isVenomous));
+
+          break;
+        }
+
+        //Amphibian
+        case "5": {
+
+          int skinMoisture;
+          Console.Write("\nSkin moisture (%): ");
+          skinMoisture = Convert.ToInt32(Console.ReadLine());
+
+          zoo.AddAnimalToInventory(new Amphibian(name, age, habitat, typeOfFood, weight, length, height, color, skinMoisture));
+
+          break;
+        }
+      }
+    }
   }
 
   public void CreateDemoAnimals() {
 
+    Console.WriteLine("\nAdded demo animals:");
+
+    zoo.AddAnimalToInventory(new Mammal("Nick Wilde", 3, "forests, steppes, deserts, tundra", "omnivorous", 6.0, 0.9, 0.4, "red", true));
+    zoo.AddAnimalToInventory(new Bird("Golubchik", 2, "city", "omnivorous", 0.3, 0.32, 0.2, "gray", 0.72));
+    zoo.AddAnimalToInventory(new Fish("Nemo", 3, "warm tropical waters", "omnivorous", 0.05, 0.11, 0.04, "orange", "salt"));
+    zoo.AddAnimalToInventory(new Reptile("Rango", 2, "steppes", "predator", 0.015, 0.15, 0.015, "green", false));
+    zoo.AddAnimalToInventory(new Amphibian("Naveen", 2, "forest, meadow, swamp", "predator", 0.025, 0.08, 0.04, "green", 80));
   }
 }
